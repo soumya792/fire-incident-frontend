@@ -1,0 +1,284 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background: #f8f8f8;
+  color: #222;
+}
+
+.app {
+  width: 100%;
+}
+
+/* ================= HERO ================= */
+
+.hero {
+  text-align: center;
+  padding: 70px 20px;
+  background: linear-gradient(180deg, #ffffff, #fff4f1);
+}
+
+.hero h1 {
+  font-size: 42px;
+  color: #ff6b4a;
+  margin-bottom: 15px;
+}
+
+.hero p {
+  max-width: 700px;
+  margin: auto;
+  color: #666;
+  line-height: 1.8;
+}
+
+/* ================= SECTION ================= */
+
+.section {
+  width: 90%;
+  margin: 80px auto;
+}
+
+.heading {
+  text-align: center;
+  margin-bottom: 45px;
+}
+
+.heading h2 {
+  font-size: 35px;
+  color: #222;
+  margin-bottom: 12px;
+}
+
+.heading p {
+  color: #777;
+  line-height: 1.7;
+  max-width: 600px;
+  margin: auto;
+}
+
+/* ================= GRID ================= */
+
+.phone-grid {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+/* ================= PHONE ================= */
+
+.phone-card {
+  text-align: center;
+}
+
+.phone-card h3 {
+  margin-top: 20px;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.phone-frame {
+  width: 250px;
+  height: 510px;
+  border-radius: 42px;
+  padding: 12px;
+  background: #111;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.25);
+  transition: .35s;
+}
+
+.phone-frame:hover {
+  transform: translateY(-12px);
+}
+
+.phone-frame img {
+  width: 100%;
+  height: 100%;
+  border-radius: 32px;
+  object-fit: cover;
+}
+
+/* ================= FOOTER ================= */
+
+footer {
+  text-align: center;
+  padding: 80px 20px;
+  background: white;
+}
+
+footer h2 {
+  font-size: 38px;
+  color: #ff6b4a;
+}
+
+/* ================= BUTTON ================= */
+
+button {
+  padding: 14px 28px;
+  border: none;
+  border-radius: 10px;
+  background: #ff6b4a;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: .3s;
+}
+
+button:hover {
+  background: #ff4c26;
+}
+
+/* ================= CARD ================= */
+
+.card {
+  background: white;
+  border-radius: 18px;
+  padding: 22px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.08);
+}
+
+.card-title {
+  font-size: 22px;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+/* ================= INPUT ================= */
+
+input {
+  width: 100%;
+  padding: 14px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  outline: none;
+}
+
+input:focus {
+  border-color: #ff6b4a;
+}
+
+/* ================= NAV ================= */
+
+.navbar {
+  width: 100%;
+  height: 75px;
+  background: white;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  box-shadow: 0 4px 20px rgba(0,0,0,.08);
+  position: sticky;
+  bottom: 0;
+}
+
+.nav-item {
+  color: #666;
+  cursor: pointer;
+}
+
+.nav-item.active {
+  color: #ff6b4a;
+}
+
+/* ================= ANIMATION ================= */
+
+.phone-frame {
+  animation: float 5s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:1100px){
+
+.phone-grid{
+gap:25px;
+}
+
+.phone-frame{
+width:220px;
+height:450px;
+}
+
+}
+
+@media(max-width:768px){
+
+.hero h1{
+font-size:30px;
+}
+
+.heading h2{
+font-size:28px;
+}
+
+.phone-grid{
+flex-direction:column;
+align-items:center;
+}
+
+.phone-frame{
+width:250px;
+height:500px;
+}
+
+footer h2{
+font-size:28px;
+}
+
+}
+
+@media(max-width:480px){
+
+.hero{
+padding:50px 15px;
+}
+
+.hero h1{
+font-size:26px;
+}
+
+.heading h2{
+font-size:24px;
+}
+
+.heading p{
+font-size:14px;
+}
+
+.phone-frame{
+width:220px;
+height:440px;
+}
+
+.phone-card h3{
+font-size:18px;
+}
+
+footer{
+padding:50px 10px;
+}
+
+footer h2{
+font-size:22px;
+}
+
+}
