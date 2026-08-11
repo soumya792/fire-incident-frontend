@@ -1,20 +1,49 @@
-export default function Sidebar({ items = [] }) {
+import { NavLink } from "react-router-dom";
+import {
+  Gauge,
+  Box,
+  ClipboardList,
+  Clock3,
+  MessageCircle,
+  UserCircle,
+  Settings2,
+} from "lucide-react";
+
+const navItems = [
+  { to: "/home", label: "Dashboard", icon: Gauge },
+  { to: "/assets", label: "Assets", icon: Box },
+  { to: "/work-orders", label: "Work Orders", icon: ClipboardList },
+  { to: "/timer", label: "Timer", icon: Clock3 },
+  { to: "/chat", label: "Chat", icon: MessageCircle },
+  { to: "/profile", label: "Profile", icon: UserCircle },
+  { to: "/settings", label: "Settings", icon: Settings2 },
+];
+
+export default function Sidebar() {
   return (
-    <aside style={{width:220,padding:16}}>
-      <nav style={{display:'flex',flexDirection:'column',gap:8}}>
-        {items.length === 0 ? (
-          <>
-            <a href="#" className="text-xs">Dashboard</a>
-            <a href="#" className="text-xs">Assets</a>
-            <a href="#" className="text-xs">Incidents</a>
-            <a href="#" className="text-xs">Settings</a>
-          </>
-        ) : (
-          items.map((it) => (
-            <a key={it.key || it.label} href={it.href || '#'} className="text-xs">{it.label}</a>
-          ))
-        )}
+    <aside className="sidebar">
+      <div className="sidebar-brand">
+        <div className="brand-mark">F</div>
+        <div>
+          <p className="eyebrow">Fire Safety</p>
+          <strong>Operations</strong>
+        </div>
+      </div>
+
+      <nav className="sidebar-nav">
+        {navItems.map(({ to, label, icon: Icon }) => (
+          <NavLink
+            key={to}
+            to={to}
+            className={({ isActive }) =>
+              `nav-link${isActive ? " active" : ""}`
+            }
+          >
+            <Icon className="nav-icon" />
+            <span>{label}</span>
+          </NavLink>
+        ))}
       </nav>
     </aside>
-  )
+  );
 }

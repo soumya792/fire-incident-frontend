@@ -1,126 +1,56 @@
+﻿import { Routes, Route, Navigate, Outlet } from "react-router-dom";
+import Sidebar from "./components/Sidebar";
+import Header from "./components/Header";
+import BottomNavigation from "./components/BottomNavigation";
+import Home from "./pages/Home";
+import Assets from "./pages/Assets";
+import AssetDetails from "./pages/AssetDetails";
+import WorkOrders from "./pages/WorkOrders";
+import WorkOrderDetails from "./pages/WorkOrderDetails";
+import Timer from "./pages/Timer";
+import Chat from "./pages/Chat";
+import Profile from "./pages/Profile";
+import Settings from "./pages/Settings";
+import Login from "./pages/Login";
 import "./App.css";
 
-function PhoneCard({ image, title }) {
+function AppShell() {
   return (
-    <div className="phone-card">
-      <div className="phone-frame">
-        <img src={image} alt={title} />
+    <div className="app-shell">
+      <Sidebar />
+
+      <div className="app-view">
+        <Header subtitle="Field service management for inspections, repairs, and response coordination" />
+
+        <main className="page-frame">
+          <Outlet />
+        </main>
+
+        <BottomNavigation />
       </div>
-      <h3>{title}</h3>
     </div>
-  );
-}
-
-function Section({ title, desc, children }) {
-  return (
-    <section className="section">
-      <div className="heading">
-        <h2>{title}</h2>
-        <p>{desc}</p>
-      </div>
-
-      <div className="phone-grid">
-        {children}
-      </div>
-    </section>
   );
 }
 
 export default function App() {
   return (
-    <div className="app">
+    <Routes>
+      <Route path="/login" element={<Login />} />
 
-      <header className="hero">
-        <h1>Fire Equipment Maintenance</h1>
-        <p>
-          Modern React UI inspired by the provided mobile application design.
-        </p>
-      </header>
+      <Route element={<AppShell />}>
+        <Route index element={<Navigate to="/home" replace />} />
+        <Route path="home" element={<Home />} />
+        <Route path="assets" element={<Assets />} />
+        <Route path="assets/:id" element={<AssetDetails />} />
+        <Route path="work-orders" element={<WorkOrders />} />
+        <Route path="work-orders/:id" element={<WorkOrderDetails />} />
+        <Route path="timer" element={<Timer />} />
+        <Route path="chat" element={<Chat />} />
+        <Route path="profile" element={<Profile />} />
+        <Route path="settings" element={<Settings />} />
+      </Route>
 
-      <Section
-        title="Sign In"
-        desc="Login and Reset Password Screens"
-      >
-        <PhoneCard
-          image="https://picsum.photos/300/600?1"
-          title="Login"
-        />
-
-        <PhoneCard
-          image="https://picsum.photos/300/600?2"
-          title="Reset Password"
-        />
-      </Section>
-
-      <Section
-        title="Home Page"
-        desc="Dashboard and Fire Equipment List"
-      >
-        <PhoneCard
-          image="https://picsum.photos/300/600?3"
-          title="Dashboard"
-        />
-
-        <PhoneCard
-          image="https://picsum.photos/300/600?4"
-          title="Equipment"
-        />
-
-        <PhoneCard
-          image="https://picsum.photos/300/600?5"
-          title="Progress"
-        />
-
-        <PhoneCard
-          image="https://picsum.photos/300/600?6"
-          title="Details"
-        />
-      </Section>
-
-      <Section
-        title="Work Orders"
-        desc="Assigned Work Orders"
-      >
-        <PhoneCard
-          image="https://picsum.photos/300/600?7"
-          title="Orders"
-        />
-
-        <PhoneCard
-          image="https://picsum.photos/300/600?8"
-          title="Timer"
-        />
-
-        <PhoneCard
-          image="https://picsum.photos/300/600?9"
-          title="Order Details"
-        />
-      </Section>
-
-      <Section
-        title="More Options"
-        desc="Menu, Chat and Profile"
-      >
-        <PhoneCard
-          image="https://picsum.photos/300/600?10"
-          title="Menu"
-        />
-
-        <PhoneCard
-          image="https://picsum.photos/300/600?11"
-          title="Chat"
-        />
-
-        <PhoneCard
-          image="https://picsum.photos/300/600?12"
-          title="Profile"
-        />
-      </Section>
-
-      <footer>
-        <h2>Thanks For Watching ❤️</h2>
-      </footer>
-
-    </div>
+      <Route path="*" element={<Navigate to="/home" replace />} />
+    </Routes>
   );
 }

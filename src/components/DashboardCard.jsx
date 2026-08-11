@@ -1,11 +1,9 @@
-export default function DashboardCard({ title, value, children }) {
+export default function DashboardCard({ title, value, caption }) {
   return (
-    <div className="stat-card">
-      <p className="text-[10px] text-zinc-400">{title}</p>
-      <div style={{marginTop:8}}>
-        <strong style={{fontSize: '1.25rem'}}>{value}</strong>
-      </div>
-      {children}
-    </div>
-  )
+    <article className="metric-card">
+      <p className="metric-label">{title}</p>
+      <p className="metric-value">{value}</p>
+      {caption ? <p className="metric-caption">{caption}</p> : null}
+    </article>
+  );
 }

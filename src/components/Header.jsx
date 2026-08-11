@@ -1,13 +1,19 @@
-import { Flame } from 'lucide-react'
+import { Flame } from "lucide-react";
 
 export default function Header({ subtitle }) {
   return (
-    <header className="panel-header">
-      <div className="brand">
-        <Flame className="icon-large" />
-        <span>Fire Incident System</span>
+    <header className="app-header">
+      <div className="brand-row">
+        <div className="brand-mark header-mark">
+          <Flame size={18} />
+        </div>
+        <div>
+          <p className="eyebrow">Operational Command</p>
+          <h1>Fire Incident System</h1>
+        </div>
       </div>
-      {subtitle && <div className="text-xs text-zinc-400">{subtitle}</div>}
+
+      {subtitle ? <p className="header-subtitle">{subtitle}</p> : null}
     </header>
-  )
+  );
 }
