@@ -1,6 +1,12 @@
 # Fire Incident Management System — Frontend
 
-A UAT-ready, stable, production-quality **Vite + React + TypeScript** application built for operational fire safety command, field service management, asset tracking, work order inspection, and response coordination.
+A stable **Vite + React + TypeScript** application for fire safety operational teams. It provides a public product overview followed by protected views for dashboard metrics, asset records, work orders, and response coordination.
+
+## Application flow
+
+`/` is the public Fire System landing page. `/login` and `/register` provide the authentication entry points. Dashboard and operational routes (`/home`, `/assets`, `/work-orders`, and related detail pages) are protected and redirect unauthenticated visitors to login.
+
+The current repository has no backend authentication endpoint. For local/UAT use, the app stores only a minimal local session profile in browser storage after a successful form submission; passwords are never stored. Replace `src/auth/authService.ts` with the approved backend integration before connecting to production identity services.
 
 ---
 
@@ -79,6 +85,10 @@ fire-incident-frontend/
 ├── src/
 │   ├── api/
 │   │   └── client.ts
+│   ├── auth/
+│   │   ├── AuthProvider.tsx
+│   │   ├── authService.ts
+│   │   └── types.ts
 │   ├── assets/
 │   ├── components/
 │   │   ├── common/
@@ -102,6 +112,8 @@ fire-incident-frontend/
 │   │   ├── Chat.tsx
 │   │   ├── Home.tsx
 │   │   ├── Login.tsx
+│   │   ├── LandingPage.tsx
+│   │   ├── Register.tsx
 │   │   ├── NotFound.tsx
 │   │   ├── Profile.tsx
 │   │   ├── Settings.tsx
@@ -110,6 +122,8 @@ fire-incident-frontend/
 │   │   └── WorkOrders.tsx
 │   ├── services/
 │   │   └── incidentService.ts
+│   ├── routes/
+│   │   └── ProtectedRoute.tsx
 │   ├── styles/
 │   ├── test/
 │   │   └── setup.ts

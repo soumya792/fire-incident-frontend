@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import {
   Gauge,
   Box,
@@ -8,8 +8,10 @@ import {
   MessageCircle,
   UserCircle,
   Settings2,
+  LogOut,
   LucideIcon,
 } from "lucide-react";
+import { useAuth } from "../../auth/useAuth";
 
 interface NavItem {
   to: string;
@@ -28,6 +30,14 @@ const navItems: NavItem[] = [
 ];
 
 export const Sidebar: React.FC = () => {
+  const { logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = (): void => {
+    logout();
+    navigate("/", { replace: true });
+  };
+
   return (
     <aside className="sidebar">
       <div className="sidebar-brand">
@@ -50,6 +60,10 @@ export const Sidebar: React.FC = () => {
           </NavLink>
         ))}
       </nav>
+      <button type="button" className="nav-link sidebar-logout" onClick={handleLogout}>
+        <LogOut className="nav-icon" />
+        <span>Logout</span>
+      </button>
     </aside>
   );
 };

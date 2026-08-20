@@ -1,87 +1,97 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { ArrowLeft, Flame } from "lucide-react";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
+import { useAuth } from "../auth/useAuth";
 
-interface LoginProps {
-  onLogin?: (credentials: { user: string }) => void;
+interface LocationState {
+  from?: string;
 }
 
-export const Login: React.FC<LoginProps> = ({ onLogin }) => {
-  const [user, setUser] = useState<string>("");
-  const [pass, setPass] = useState<string>("");
+export const Login: React.FC = () => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
+  const { isAuthenticated, login } = useAuth();
+  const from = (location.state as LocationState | null)?.from || "/home";
 
-  const handleSubmit = (e: React.FormEvent): void => {
-    e.preventDefault();
-    if (!user.trim() || !pass.trim()) {
-      setError("Please enter both username and password");
-      return;
-    }
+  if (isAuthenticated) {
+    return <Navigate to="/home" replace />;
+  }
 
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
+    event.preventDefault();
     setError(null);
-    if (onLogin) {
-      onLogin({ user });
+    setIsSubmitting(true);
+    try {
+      await login({ username, password });
+      navigate(from, { replace: true });
+    } catch (submissionError) {
+      setError(
+        submissionError instanceof Error ? submissionError.message : "Unable to sign in. Try again."
+      );
+    } finally {
+      setIsSubmitting(false);
     }
-    navigate("/home");
   };
 
   return (
-    <main className="login-page">
-      <section className="login-card">
-        <div className="login-logo">F</div>
-        <div className="login-heading">
-          <h1>Login</h1>
-          <p>Access Fire Incident System operations and coordination tools.</p>
+    <main className="auth-page">
+      <section className="auth-card" aria-labelledby="login-title">
+        <Link className="back-link" to="/">
+          <ArrowLeft size={16} /> Back to Fire System
+        </Link>
+        <div className="login-logo">
+          <Flame size={25} aria-hidden="true" />
         </div>
-
+        <div className="login-heading">
+          <p className="section-kicker">Secure access</p>
+          <h1 id="login-title">Welcome back</h1>
+          <p>Sign in to access your Fire System operational workspace.</p>
+        </div>
         {error ? (
-          <div
-            style={{
-              padding: "0.5rem 0.75rem",
-              backgroundColor: "#7f1d1d",
-              color: "#fca5a5",
-              borderRadius: "4px",
-              marginBottom: "1rem",
-              fontSize: "0.875rem",
-            }}
-          >
+          <div className="form-error" role="alert">
             {error}
           </div>
         ) : null}
-
-        <form onSubmit={handleSubmit} className="login-form">
+        <form onSubmit={handleSubmit} className="login-form" noValidate>
           <div className="input-group">
-            <label htmlFor="username-input">Username</label>
+            <label htmlFor="username-input">Username or email</label>
             <div className="input-wrapper">
               <input
                 id="username-input"
                 type="text"
-                value={user}
-                onChange={(e) => setUser(e.target.value)}
-                placeholder="Enter your username"
+                autoComplete="username"
+                value={username}
+                onChange={(event) => setUsername(event.target.value)}
+                placeholder="Enter your username or email"
+                required
               />
             </div>
           </div>
-
           <div className="input-group">
             <label htmlFor="password-input">Password</label>
             <div className="input-wrapper">
               <input
                 id="password-input"
                 type="password"
-                value={pass}
-                onChange={(e) => setPass(e.target.value)}
+                autoComplete="current-password"
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
                 placeholder="Enter your password"
+                required
               />
             </div>
           </div>
-
-          <button type="submit" className="login-button">
-            Sign in
+          <button type="submit" className="login-button" disabled={isSubmitting}>
+            {isSubmitting ? "Signing in…" : "Sign in"}
           </button>
         </form>
-
-        <p className="login-footer">Need help? Contact support@fireops.com</p>
+        <p className="login-bottom">
+          New to Fire System? <Link to="/register">Create an account</Link>
+        </p>
       </section>
     </main>
   );

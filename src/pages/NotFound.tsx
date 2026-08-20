@@ -11,7 +11,7 @@ export const NotFound: React.FC = () => {
           The requested command page or route could not be located.
         </p>
         <Link
-          to="/home"
+          to="/"
           style={{
             display: "inline-block",
             padding: "0.5rem 1rem",
@@ -22,7 +22,7 @@ export const NotFound: React.FC = () => {
             fontWeight: 600,
           }}
         >
-          Return to Dashboard
+          Return to Fire System
         </Link>
       </section>
     </main>
